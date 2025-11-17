@@ -5,20 +5,17 @@ import Tesseract from "tesseract.js";
 const Home = () => {
   const webcamRef = useRef(null);
   const [isCameraOn, setIsCameraOn] = useState(false);
-  const [detectedText, setDetectedText] = useState("");
   const [rollNumber, setRollNumber] = useState("");
   const [found, setFound] = useState(false);
   const isProcessingRef = useRef(false);
 
-  // Roll no pattern (3 to 10 digits)
+  // Only detect exactly 5 digits
   const rollRegex = /\b\d{5}\b/;
 
   const captureAndScan = async () => {
     if (!webcamRef.current || isProcessingRef.current || found) return;
-
     isProcessingRef.current = true;
 
-    // Capture a low-resolution frame (faster OCR)
     const imageSrc = webcamRef.current.getScreenshot({
       width: 320,
       height: 240,
@@ -27,7 +24,6 @@ const Home = () => {
     try {
       const result = await Tesseract.recognize(imageSrc, "eng");
       const text = result.data.text || "";
-      setDetectedText(text);
 
       const rollMatch = text.match(rollRegex);
 
@@ -36,16 +32,6 @@ const Home = () => {
         setRollNumber(roll);
         setFound(true);
         setIsCameraOn(false);
-
-        // Save to localStorage
-        const logs = JSON.parse(localStorage.getItem("scanLogs") || "[]");
-
-        logs.push({
-          roll,
-          time: new Date().toLocaleString(),
-        });
-
-        localStorage.setItem("scanLogs", JSON.stringify(logs));
       }
     } catch (err) {
       console.error("OCR Error:", err);
@@ -64,7 +50,7 @@ const Home = () => {
 
   return (
     <div className="bg-gray-700 min-h-screen flex flex-col items-center justify-center text-white">
-      <h1 className="text-2xl font-bold mb-4">ID Card Scanner</h1>
+      <h1 className="text-2xl font-bold mb-6">ID Card Scanner</h1>
 
       {!isCameraOn && !found && (
         <button
@@ -94,11 +80,7 @@ const Home = () => {
         </>
       )}
 
-      <div className="mt-6 p-4 bg-gray-800 rounded-lg w-96 text-center">
-        <h2 className="font-semibold mb-2">Detected Text:</h2>
-        <p className="text-sm break-words">{detectedText || "Scanning..."}</p>
-      </div>
-
+      {/* ✔ Only show result */}
       {found && (
         <div className="mt-6 p-4 bg-green-700 rounded-lg text-center">
           🎉 Roll Number Detected:{" "}
