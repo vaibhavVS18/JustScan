@@ -50,24 +50,24 @@ const LoginModal = ({ isOpen, onClose, onSignupClick, onForgotPasswordClick }) =
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md px-4 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4 overflow-y-auto"
       onClick={onClose}
     >
       {/* Modal Container */}
       <div
-        className="glass-panel w-full max-w-md rounded-2xl relative flex flex-col shadow-[0_0_50px_rgba(139,92,246,0.15)] animate-in fade-in zoom-in-95 duration-200 border border-white/10 p-6 sm:p-8"
+        className="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md relative my-8 border border-gray-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+          className="absolute top-3 right-3 text-gray-500 hover:text-red-500 transition"
         >
           ✕
         </button>
 
         {/* Header */}
-        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center bg-gradient-to-r from-emerald-500 to-teal-400 bg-clip-text text-transparent">
           Login
         </h2>
 
@@ -75,7 +75,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick, onForgotPasswordClick }) =
         <form onSubmit={submitHandler} className="space-y-5">
           <div>
             <label
-              className="block text-gray-400 mb-2 text-sm font-medium"
+              className="block text-gray-600 mb-2 text-sm font-medium"
               htmlFor="email"
             >
               Email
@@ -89,16 +89,16 @@ const LoginModal = ({ isOpen, onClose, onSignupClick, onForgotPasswordClick }) =
               id="email"
               placeholder="Enter your email"
               required
-              className={`w-full py-3 px-4 rounded-xl bg-black/20 border text-white placeholder-gray-500 text-sm sm:text-base
-                            ${error ? "border-red-500/50" : "border-white/10"} focus:outline-none focus:ring-2
-                            ${error ? "focus:ring-red-500/50" : "focus:ring-indigo-500/50"} transition-all 
+              className={`w-full py-3 px-4 rounded-lg bg-gray-50 border text-emerald-800 text-sm sm:text-base
+                            ${error ? "border-red-600" : "border-gray-300"} focus:outline-none focus:ring-2
+                            ${error ? "focus:ring-red-600" : "focus:ring-emerald-400"} transition-all 
                         `}
             />
           </div>
 
           <div>
             <label
-              className="block text-gray-400 mb-2 text-sm font-medium"
+              className="block text-gray-600 mb-2 text-sm font-medium"
               htmlFor="password"
             >
               Password
@@ -112,14 +112,14 @@ const LoginModal = ({ isOpen, onClose, onSignupClick, onForgotPasswordClick }) =
               id="password"
               placeholder="Enter your password"
               required
-              className={`w-full py-3 px-4 rounded-xl bg-black/20 border text-white placeholder-gray-500 text-sm sm:text-base
-                            ${error ? "border-red-500/50" : "border-white/10"} focus:outline-none focus:ring-2
-                            ${error ? "focus:ring-red-500/50" : "focus:ring-indigo-500/50"} transition-all 
+              className={`w-full py-3 px-4 rounded-lg bg-gray-50 border text-emerald-800 text-sm sm:text-base
+                            ${error ? "border-red-600" : "border-gray-300"} focus:outline-none focus:ring-2
+                            ${error ? "focus:ring-red-600" : "focus:ring-emerald-400"} transition-all 
                         `}
             />
 
             {error && (
-              <p className="text-red-400 text-xs mt-2">{error}</p>
+              <p className="text-red-600 text-xs mt-2">{error}</p>
             )}
 
             {/* Forgot Password Link */}
@@ -130,7 +130,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick, onForgotPasswordClick }) =
                   onClose();
                   if (onForgotPasswordClick) onForgotPasswordClick();
                 }}
-                className="text-indigo-400 hover:text-indigo-300 text-xs font-medium transition-colors"
+                className="text-sm text-emerald-600 hover:text-teal-500 font-medium transition-colors"
               >
                 Forgot Password?
               </button>
@@ -140,9 +140,9 @@ const LoginModal = ({ isOpen, onClose, onSignupClick, onForgotPasswordClick }) =
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 rounded-xl font-bold shadow-lg transition-all text-sm sm:text-base ${loading
-              ? "bg-white/10 text-gray-500 cursor-not-allowed"
-              : "bg-gradient-to-r from-purple-600 to-blue-600 hover:shadow-indigo-600/30 text-white"
+            className={`w-full py-3 rounded-xl font-semibold shadow-md transition-all text-sm sm:text-base ${loading
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-white"
               }`}
           >
             {loading ? "Logging in..." : "Login"}
@@ -150,17 +150,17 @@ const LoginModal = ({ isOpen, onClose, onSignupClick, onForgotPasswordClick }) =
         </form>
 
         {/* Divider */}
-        <div className="flex items-center my-6">
-          <hr className="flex-1 border-white/10" />
-          <span className="px-3 text-gray-500 text-sm">or</span>
-          <hr className="flex-1 border-white/10" />
+        <div className="flex items-center my-4">
+          <hr className="flex-1 border-gray-300" />
+          <span className="px-3 text-gray-400">or</span>
+          <hr className="flex-1 border-gray-300" />
         </div>
 
         {/* Google Login */}
         <div className="flex justify-center">
           <button
             onClick={handleGoogleLogin}
-            className="w-full py-3 px-5 flex items-center justify-center gap-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium border border-white/10 transition-all text-sm sm:text-base"
+            className="py-2.5 px-5 flex items-center justify-center gap-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium shadow-sm border border-gray-300 transition-all text-sm sm:text-base"
           >
             <FcGoogle className="text-xl" />
             Continue with Google
@@ -168,7 +168,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick, onForgotPasswordClick }) =
         </div>
 
         {/* Signup Link */}
-        <p className="text-gray-400 mt-6 text-center text-sm">
+        <p className="text-gray-500 mt-5 text-center text-sm">
           Don&apos;t have an account?{" "}
           <button
             type="button"
@@ -176,7 +176,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick, onForgotPasswordClick }) =
               onClose();
               onSignupClick();
             }}
-            className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors"
+            className="text-emerald-600 hover:text-teal-500 font-medium transition-colors"
           >
             Create one
           </button>

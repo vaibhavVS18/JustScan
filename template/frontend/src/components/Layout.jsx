@@ -13,10 +13,17 @@ import ForgotPasswordModal from "./home/ForgotPasswordModal.jsx";
 
 const Layout = () => {
     const { user } = useContext(UserContext);
-    const { isRegisterOpen, setIsRegisterOpen, isLoginOpen, setIsLoginOpen, isForgotPasswordOpen, setIsForgotPasswordOpen } = useContext(ModalContext);
+    const {
+        isRegisterOpen,
+        setIsRegisterOpen,
+        isLoginOpen,
+        setIsLoginOpen,
+        isForgotPasswordOpen,
+        setIsForgotPasswordOpen
+    } = useContext(ModalContext);
 
     return (
-        <div className="min-h-screen flex flex-col text-white selection:bg-[var(--color-neon-purple)] selection:text-white">
+        <div className="min-h-screen flex flex-col">
             {/* Navbar shared across all pages */}
             <Navbar
                 user={user}
@@ -45,19 +52,13 @@ const Layout = () => {
                 isOpen={isLoginOpen}
                 onClose={() => setIsLoginOpen(false)}
                 onSignupClick={() => setIsRegisterOpen(true)}
-                onForgotPasswordClick={() => {
-                    setIsLoginOpen(false);
-                    setIsForgotPasswordOpen(true);
-                }}
+                onForgotPasswordClick={() => setIsForgotPasswordOpen(true)}
             />
 
             <ForgotPasswordModal
                 isOpen={isForgotPasswordOpen}
                 onClose={() => setIsForgotPasswordOpen(false)}
-                onLoginClick={() => {
-                    setIsForgotPasswordOpen(false);
-                    setIsLoginOpen(true);
-                }}
+                onLoginClick={() => setIsLoginOpen(true)}
             />
 
         </div>

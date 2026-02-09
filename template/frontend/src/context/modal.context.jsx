@@ -8,7 +8,14 @@ export const ModalProvider = ({ children }) => {
     const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
 
     return (
-        <ModalContext.Provider value={{ isRegisterOpen, setIsRegisterOpen, isLoginOpen, setIsLoginOpen, isForgotPasswordOpen, setIsForgotPasswordOpen }}>
+        <ModalContext.Provider value={{
+            isRegisterOpen,
+            setIsRegisterOpen,
+            isLoginOpen,
+            setIsLoginOpen,
+            isForgotPasswordOpen,
+            setIsForgotPasswordOpen
+        }}>
             {children}
         </ModalContext.Provider>
     )
