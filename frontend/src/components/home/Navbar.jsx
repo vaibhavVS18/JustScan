@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "../../config/axios";
 import { UserContext } from "../../context/user.context";
-import { User, LogOut, ScanLine } from "lucide-react";
+import { User, LogOut } from "lucide-react";
+import JustScanLogo1 from "../../assets/JustScanLogo1.png";
 
 const Navbar = ({ onLoginClick }) => {
   const { user, setUser } = useContext(UserContext);
@@ -34,9 +35,11 @@ const Navbar = ({ onLoginClick }) => {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="p-2 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] transition-all duration-300">
-            <ScanLine className="text-white w-6 h-6" />
-          </div>
+          <img
+            src={JustScanLogo1}
+            alt="JustScan"
+            className="w-10 h-10 object-contain transition-transform duration-300 group-hover:scale-110"
+          />
           <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
             JustScan
           </span>
@@ -96,7 +99,7 @@ const Navbar = ({ onLoginClick }) => {
           )}
         </div>
       </div>
-    </header>
+    </header >
   );
 };
 
