@@ -14,6 +14,9 @@ export const requirePortalSession = async (req, res, next) => {
             return res.status(403).json({ message: "Invalid portal session" });
         }
 
+        if (session.expiresAt < new Date()) {
+            return res.status(403).json({ message: "Portal session expired" });
+        }
 
         req.organization = session.organizationId;
         req.portalSession = session;

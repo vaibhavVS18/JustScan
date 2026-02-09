@@ -21,7 +21,7 @@ const app = express();
 // Simplified, Express 5–safe CORS setup
 app.use(
   cors({
-    origin: ["https://hackathon-just-scan.vercel.app", "http://localhost:5173", "http://localhost:5174"],
+    origin: ["https://justscanpro.vercel.app", "http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
