@@ -1,7 +1,7 @@
 # JustScan   
 **Smart, ID Scan based Entry Management Solution**
 
-🔗 **Live Demo:** 
+🔗 **Live Demo:** https://justscanpro.vercel.app
 
 ---
 
