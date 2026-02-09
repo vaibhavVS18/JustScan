@@ -17,7 +17,12 @@ const GenericModal = ({ isOpen, onClose, type = 'info', title, message, actionLa
             bg: 'bg-green-500/10',
             border: 'border-green-500/30'
         },
-
+        info: {
+            icon: <Info size={32} />,
+            color: 'text-blue-400',
+            bg: 'bg-blue-500/10',
+            border: 'border-blue-500/30'
+        }
     };
 
     const currentStyle = styles[type] || styles.info;

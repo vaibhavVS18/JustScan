@@ -42,6 +42,8 @@ const Layout = () => {
 
             <LoginModal
                 isOpen={isLoginOpen}
+                onClose={() => setIsLoginOpen(false)}
+                onSignupClick={() => setIsRegisterOpen(true)}
             />
 
         </div>
