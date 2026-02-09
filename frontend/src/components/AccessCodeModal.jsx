@@ -52,15 +52,6 @@ const AccessCodeModal = ({ isOpen, onClose, organization }) => {
                     ✕
                 </button>
 
-                <div className="text-center mb-8">
-                    <div className="w-16 h-16 mx-auto bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400 mb-4 ring-1 ring-purple-500/30">
-                        <span className="text-2xl font-bold">#</span>
-                    </div>
-                    <h2 className="text-2xl font-bold text-white mb-2">Private Workspace</h2>
-                    <p className="text-gray-400 text-sm">
-                        Enter access code for <span className="text-white font-medium">{organization.name}</span>
-                    </p>
-                </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
@@ -75,11 +66,7 @@ const AccessCodeModal = ({ isOpen, onClose, organization }) => {
                         />
                     </div>
 
-                    {error && (
-                        <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
-                            {error}
-                        </div>
-                    )}
+
 
                     <button
                         type="submit"
