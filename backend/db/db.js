@@ -1,17 +1,18 @@
 import mongoose from "mongoose";
+
 import dotenv from "dotenv";
 dotenv.config();
 
-function dbConnect(){
-    mongoose.connect(process.env.MONGO_URI)
-    .then(()=>{
-        console.log("connected to mongoDB");
-    })
-    .catch(err=>{
-        console.log(err);
-    })
+const connect = async()=>{
+    try{    
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log("MongoDB connected");
+    }
+    catch(err){
+        console.error("MongoDB connection error:", err.message);
+        process.exit(1);    //Exit the Node.js process with a failure code (1).
+    }
 }
 
-export default dbConnect;
 
-// or you can use async-await with try catch
+export default connect;

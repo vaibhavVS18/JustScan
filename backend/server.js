@@ -1,54 +1,53 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
+// import cookieParser from "cookie-parser"; //
+import connect from "./db/db.js";
 
-import dbConnect from "./db/db.js";
+import userRoutes from "./routes/user.routes.js";
+import authRoutes from "./routes/auth.routes.js";
+import organizationRoutes from "./routes/organization.routes.js";
 import studentRoutes from "./routes/student.routes.js";
-import Tesseract from "tesseract.js";
+import entryRoutes from "./routes/entry.routes.js";
+import feedbackRoutes from "./routes/feedback.routes.js";
+
+import passport from "./config/passport.js"
 
 dotenv.config();
 
-dbConnect()
+connect();
 const app = express();
 
-app.use(cors());
-// app.use(express.json());
-app.use(bodyParser.json({ limit: "10mb" })); // handle base64 images
-app.use(express.urlencoded({extended:true}));
-app.use(cookieParser());
+// Simplified, Express 5–safe CORS setup
+app.use(
+  cors({
+    origin: ["https://hackathon-just-scan.vercel.app", "http://localhost:5173", "http://localhost:5174"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
 
-app.use("/student", studentRoutes);
+//       Proper preflight handling for Express 5
+// app.options(/.*/, cors());
 
-app.get("/", (req, res)=>{
-    res.status(200).send("Hello, backend is running");
-})
+app.use(passport.initialize());   // check
 
-// OCR Route
-// OCR Route
-app.post("/scan", async (req, res) => {
-  try {
-    const { image } = req.body;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// app.use(cookieParser());
 
-    if (!image) {
-      return res.status(400).json({ error: "No image provided" });
-    }
-
-    const result = await Tesseract.recognize(image, "eng", {
-      langPath: "./tessdata",  // <--- use local traineddata folder
-      cachePath: "./tessdata"  // <--- prevent creating extra cache folders
-    });
-
-    res.json({ text: result.data.text });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "OCR failed", details: err.message });
-  }
+app.get("/", (req, res) => {
+  res.send("hello");
 });
 
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/organizations", organizationRoutes);
+app.use("/api/students", studentRoutes);
+app.use("/api/entries", entryRoutes);
+app.use("/api/feedback", feedbackRoutes);
 
-const Port = process.env.PORT || 3000;
-app.listen(Port, ()=>{
-    console.log(`server is running on port ${Port}`);
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(` Server running on http://localhost:${PORT}`);
+});

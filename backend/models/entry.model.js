@@ -1,34 +1,34 @@
 import mongoose from "mongoose";
 
-const entrySchema = mongoose.Schema({
+const entrySchema = new mongoose.Schema({
     student: {
-        type: mongoose.Types.ObjectId,
-        ref: "Student"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Student",
+        required: true
     },
-
+    organization: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Organization",
+        required: true
+    },
     destination: {
         type: String,
-        default: "Una market"
+        default: "Una market",
     },
-
-    Leaving_date: {
-        type: String, // Store formatted date as a string
-        default: () => formatDate(new Date()),
+    leavingTime: {
+        type: Date,
+        default: Date.now
     },
-    Leaving_time: {
-        type: String, // Store only the time as a string
-        default: () => new Date().toLocaleTimeString('en-GB').slice(0,5),
+    arrivalTime: {
+        type: Date,
+        default: null
     },
-    Arrival_date: {
-        type: String, // Store formatted date as a string
-        default: null,
-    },
-    Arrival_time: {
-        type: String, // Store only the time as a string
-        default: null,
-    },
-});
-
+    status: {
+        type: String,
+        enum: ["Out", "In"],
+        default: "Out"
+    }
+}, { timestamps: true });
 
 const Entry = mongoose.model("Entry", entrySchema);
 export default Entry;

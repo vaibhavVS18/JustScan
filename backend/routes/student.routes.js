@@ -1,23 +1,20 @@
-import {Router} from "express";
-import {body} from "express-validator";
-import * as studentController from "../controllers/student.controller.js"
+import { Router } from "express";
+import { getStudents, createStudent, getStudent, updateStudent, bulkUploadStudents, deleteStudent, getRollNumbers } from "../controllers/student.controller.js";
+import { requirePortalSession } from "../middleware/portal.middleware.js";
+import multer from "multer";
 
 const router = Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/add", 
-        body("roll_no")
-        .isInt().withMessage("Roll number must be an integer")
-        .isLength({ min: 5, max: 5 }).withMessage("Roll number must be exactly 5 digits"),
-        body("name").notEmpty().withMessage("Name is required"),
-        body("mobile_no")
-        .isInt().withMessage("Mobile number must be digits only")
-        .isLength({ min: 10, max: 10 }).withMessage("Mobile number must be exactly 10 digits"),
-        body("hostel_name")
-        .isIn(["Bhutagni", "Chitaghni", "Jathragni"]).withMessage("Invalid hostel name"),
-        body("Room_no").isInt().withMessage("Room number must be an integer"),
-        body("email").optional().isEmail().withMessage("Invalid email format"),
+// All student routes require a valid portal session (organization context)
+router.use(requirePortalSession);
 
-    studentController.addStudentController
-)
+router.post("/bulk-upload", upload.single("file"), bulkUploadStudents);
+router.get("/roll-numbers", getRollNumbers);
+router.get("/", getStudents);
+router.post("/", createStudent);
+router.get("/:rollNo", getStudent);
+router.put("/:rollNo", updateStudent);
+router.delete("/:rollNo", deleteStudent);
 
 export default router;

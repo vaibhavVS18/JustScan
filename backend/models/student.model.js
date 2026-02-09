@@ -1,49 +1,51 @@
 import mongoose from "mongoose";
 
-const studentSchema = mongoose.Schema({
+const studentSchema = new mongoose.Schema({
     roll_no: {
         type: Number,
         required: true,
-        validate:{
-            validator: (v)=>{
-                return v.toString().length === 5;
-            },
-            message:  "Roll number must be exactly 5 digits long",
-        }
+        // validate: {
+        //     validator: (v) => {
+        //         return v.toString().length === 5;
+        //     },
+        //     message: "Roll number must be exactly 5 digits long",
+        // }
     },
-
-    name:{
+    name: {
         type: String,
         required: true
     },
-
-    mobile_no:{
+    mobile_no: {
         type: Number,
-        required: true,
-        validate:{
-            validator: (v)=>{
+        validate: {
+            validator: (v) => {
                 return v.toString().length === 10;
             },
             message: "Mobile number must be exactly 10 digits long",
         },
-        // default: 1234567890,
+        default: 1234567890,
         required: true,
     },
-
-        hostel_name:{
+    hostel_name: {
         type: String,
-        enum: ["Bhutagni","Chitaghni","Jathragni"],
-        required: true,
     },
-    Room_no:{
+    Room_no: {
         type: Number,
         default: 1,
+    },
+    email: {
+        type: String,
         required: true,
     },
-    email:{
-        type: String,
+    organization: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Organization",
+        required: true
     }
 });
 
+studentSchema.index({ roll_no: 1, organization: 1 }, { unique: true }); // Ensure unique roll_no per organization
+
 const Student = mongoose.model("Student", studentSchema);
+
 export default Student;
