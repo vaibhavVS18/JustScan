@@ -1,108 +1,127 @@
-# JustScan   
-**Smart, ID Scan based Entry Management Solution**
+<div align="center">
+  <a href="https://justscanpro.vercel.app">
+  <img src="./frontend/public/JustScanLogo1.png" alt="JustScan Logo" width="200"/>
+  <h1>JustScan – Smart ID-Based Entry Management System</h1>
+  </a>
+</div>
 
-🔗 **Live Demo:** https://justscanpro.vercel.app
+An intelligent web application that replaces traditional handwritten entry logs with **AI-powered ID card scanning**. JustScan uses **Tesseract.js OCR** for instant ID validation, **Google Gemini 2.5 Flash** for automated validation on different organizations' ID card setup, and real-time dashboards for comprehensive student tracking—perfect for universities, hostels, and organizations.
+
+<br>
+<p align="center">
+  <a href="https://justscanpro.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/LIVE%20DEMO-OPEN-brightgreen?style=for-the-badge"
+         height="60" />
+  </a>
+</p>
+
+<!-- [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/yourusername/JustScan)  -->
+
+## 🌟 Features
+
+### For Security Admins
+- AI-powered setup with automatic keyword extraction from ID cards
+- Bulk student import via Excel/CSV files
+- Real-time dashboard with search and filter capabilities
+- Automated email reminders for students currently "Out"
+- Role-based access control (Owners vs Staff)
+
+### For Security Guards
+- Webcam-based scanning (no expensive hardware needed)
+- Instant ID validation using Tesseract.js OCR
+- Automatic entry/exit logging with status toggle
+- Visual feedback with student photo and details
+
+### Key Capabilities
+- On-device OCR with image pre-processing
+- Smart keyword validation to prevent fake IDs
+- Regex pattern matching for roll number extraction
+- Daily analytics and statistics
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+- React.js (Vite)
+- Tailwind CSS
+- Tesseract.js
+- React Webcam
+- Context API
+
+**Backend:**
+- Node.js
+- Express
+- MongoDB
+- Google Gemini 2.5 Flash
+- Passport.js
+- Nodemailer
+- Multer
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v16+)
+- MongoDB
+- Google Cloud API Key (for Gemini AI)
+- Gmail account (for Nodemailer)
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/yourusername/JustScan.git
+cd JustScan
+```
+
+2. **Install dependencies**
+```bash
+# Install frontend dependencies
+cd frontend
+npm install
+
+# Install backend dependencies
+cd backend
+npm install
+```
+
+3. **Set up environment variables**
+
+Create `.env` file in the **backend** directory:
+```env
+MONGO_URI=your_mongodb_connection_string
+GOOGLE_CLIENT_ID=your_google_oauth_client_id
+GOOGLE_CLIENT_SECRET=your_google_oauth_client_secret
+GEMINI_API_KEY=your_gemini_api_key
+JWT_SECRET=your_jwt_secret
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASSWORD=your_app_password
+SESSION_SECRET=your_session_secret
+CLIENT_URL=http://localhost:5173
+```
+
+Create `.env` file in the **frontend** directory:
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+4. **Run the application**
+```bash
+# Start backend
+cd backend
+npm run dev
+
+# Start frontend (in new terminal)
+cd frontend
+npm run dev
+```
+
+## 🌐 Live Demo
+
+**Live Application**: [https://justscanpro.vercel.app/](https://justscanpro.vercel.app/)
+
+## 👨‍💻 Author
+
+**Vaibhav** - [@vaibhavVS18](https://github.com/vaibhavVS18)
 
 ---
 
-##  Project Overview
-
-**JustScan** is a cutting edge web application designed to modernize and digitize entry/exit logging for universities, hostels, and organizations. We replace traditional manual ledgers and expensive hardware scanners with a **browser based, AI enhanced system** that turns any laptop or smartphone webcam into a sophisticated security gate.
-
-JustScan solves the problem of efficient student tracking, ensuring security while maintaining speed and ease of use. It leverages **On-Device OCR** for instant scanning and **Google Gemini 2.5 Flash** for intelligent organization setup.
-
----
-
-##  Key Features
-
-### 1.  Intelligent Webcam Scanning (Client Side OCR)
-JustScan eliminates the need for barcode scanners. It uses advanced computer vision directly in the browser:
-- **Instant Recognition:** Uses **Tesseract.js** to perform Optical Character Recognition (OCR) on the video feed in real-time.
-- **Smart Validation:** The system doesn't just read text; it validates it. It looks for **specific keywords** (unique to your organization) to ensure the card being shown is a valid ID card, not just a random piece of paper.
-- **Image Pre-processing:** We implemented custom canvas image processing (grayscale conversion and high contrast binarization) to ensure high scan accuracy even in low light conditions.
-- **Regex Pattern Matching:** Automatically detects and extracts Roll Numbers based on the organization's specific format.
-
-### 2.  AI Powered Setup
-Setting up a new organization is seamless with our Generative AI integration:
-- **One-Click ID Analysis:** Admins can simply upload a photo of a sample ID card.
-- **Gemini 2.5 Analysis:** The backend uses Google's Gemini 2.5 Flash model to analyze the ID card's layout, extract the institution's name, and identify **unique security keywords** to be used for validation.
-- **Automated Configuration:** The AI automatically configures the scanning algorithm for that specific organization.
-
-### 3.  Automated Entry/Exit Logging
-- **Smart State Tracking:** The system automatically determines if a student is entering or entering based on their last status.
-  - If a student is "In", scanning them marks them as "Out".
-  - If a student is "Out", scanning them marks them as "In".
-
-
-### 4. Dashboard & Analytics
-- **Live Feed:** A real time table showing the latest entries and exits.
-- **Search & Filter:** Instantly filter records by Name, Roll Number, or Hostel to find specific students.
-- **Daily Stats:** View total active "Out" entries at a glance.
-
-### 5. Attendance Reminders & Notifications
-- **Automated Reminders:** Security admins can send email reminders to **all students who are currently 'Out'** with a single click.
-- **Daily Reports:** Helps in ensuring all students have returned to the hostel/campus by the deadline.
-
-### 6. Comprehensive Student Management
-- **Bulk Import:** Supports uploading student data via **Excel/CSV** files for quick onboarding of thousands of students.
-- **Duplicate Prevention:** Smart validation ensures no duplicate roll numbers are added.
-- **Role Based Access:** 
-  - **Owners:** Full control over organization settings and data.
-  - **Staff:** Access to scanning and logging features only.
-
----
-
-##  Tech Stack
-
-JustScan is built on the **MERN Stack** with advanced AI integrations:
-
-### Frontend
-- **React.js (Vite):** Fast, modern UI framework.
-- **Tailwind CSS:** For a responsive, glassmorphism-inspired "Cyberpunk/Modern" aesthetic.
-- **Tesseract.js:** In-browser Optical Character Recognition (OCR).
-- **React Webcam:** Handling media streams for scanning.
-- **Context API:** For global state management (User, Toast, Modals).
-
-### Backend
-- **Node.js & Express:** Robust REST API.
-- **MongoDB & Mongoose:** Scalable NoSQL database for storing organizations, users, and logs.
-- **Google Gemini 2.5 Flash:** Generative AI for image analysis and ID verification.
-- **Passport.js:** Secure Google OAuth authentication.
-- **Multer:** Handling file uploads (ID cards, Excel sheets).
-- **Nodemailer:** Sending email notifications.
-
----
-
-## How It Works
-
-1.  **Organization Setup:**
-    - Admin logs in via Google.
-    - Creates a new Organization (e.g., "IIT Roorkee").
-    - **Step 1:** Uploads a sample ID card. **Gemini AI** scans it and extracts validation keywords.
-    - **Step 2:** Uploads an Excel sheet of students.
-
-2.  **The Scanning Process:**
-    - The guard opens the **Scan Portal**.
-    - A student shows their ID card to the webcam.
-    - **Tesseract.js** reads the text ⮕ Checks for Keywords ⮕ Finds Roll No.
-    - If valid, it sends the Roll No to the backend.
-
-3.  **Entry Logging:**
-    - Backend checks the student's current status.
-    - Updates status (In ↔ Out) and logs the timestamp.
-    - Frontend displays the student's details (Name, Photo, Room No).
-
-4.  **End of Day:**
-    - Admin clicks "Send Reminders".
-    - System identifies all students with "Out" status and emails them to return.
-
----
-
-##  Security & Performance
-- **Token-Based Auth:** Secure JWT authentication for API access.
-- **Access Codes:** Organizations are protected by unique access codes to prevent unauthorized joins.
-- **Optimized OCR:** Image processing runs on a dedicated Web Worker to prevent UI freezing.
-
----
-
-*Built with ❤️ for the Hack-The-Throne.*
+**Made with ❤️ to replace Handwritten Entry system to ID based online Entry System**
